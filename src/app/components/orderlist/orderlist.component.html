@@ -1,0 +1,24 @@
+<div class="my-orders">
+    <h1>My Orders</h1>
+    <div class="order-header row">
+        <div class="col-sm-2">Orders</div>
+        <div class="col-sm-2">Order ID</div>
+        <div class="col-sm-2">Price</div>
+        <div class="col-sm-2">Status</div>
+        <div class="col-sm-2 actions-column">Actions</div>
+    </div>
+    <div class="order-item row" *ngFor="let order of orderData">
+        <div class="col-sm-2">
+            <img class="order-img" src="https://www.clipartmax.com/png/middle/210-2106541_track-my-order-beach-volleyball.png" alt="Order Image">
+        </div>
+        <div class="col-sm-2">#{{order.id}}</div>
+        <div class="col-sm-2">${{order.totalPrice}}</div>
+        <div class="col-sm-2 order-status">In Progress</div>
+        <div class="col-sm-2">
+            <div class="action-buttons">
+                <button class="view-button" (click)="viewOrder(order.id)">View Order</button>
+                <button class="cancel-button" (click)="cancelOrder(order.id)">Cancel Order</button>
+            </div>
+        </div>
+    </div>    
+</div>

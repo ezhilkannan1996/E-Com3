@@ -1,0 +1,45 @@
+<div class="search-container">
+  <mat-icon class="search-icon"  [ngStyle]="{'font-size': searchQuery.length > 0 ? '33px' : '30px'}" >search</mat-icon>
+  <!-- <mat-form-field class="search-input">  -->
+    <div class="search-input">
+    <input matInput type="text" placeholder="Search" [(ngModel)]="searchQuery" (input)="onSearchChange()">
+  </div>
+  <!-- </mat-form-field> -->
+</div>
+
+
+<!-- <mat-form-field class="search-input">
+  <input matInput type="text" placeholder="Search">
+</mat-form-field> -->
+<!-- <app-product-sidebar (categorySelected)="filterProductsByCategory($event)"></app-product-sidebar> -->
+<section class="products-container">
+  <mat-card class="product-card" *ngFor="let product of (searchQuery ? filteredProducts : getPaginatedProducts())">
+    <div class="product-image">
+      <img [src]="product.imageUrl" alt="{{ product.name }}" />
+    </div>
+    <mat-card-content class="product-details">
+      <h3 class="product-name">{{ product.name }}</h3>
+      <span class="product-price">&#x20B9; {{ product.price }}</span> <!-- Indian Rupee symbol -->
+    </mat-card-content>
+    <mat-card-actions class="product-actions">
+      <div class="product-buttons">
+        <button mat-raised-button color="primary" (click)="addToCart(product)" class="add-to-cart-btn">
+          <mat-icon>add_shopping_cart</mat-icon>
+          <ng-container *ngIf="!isProductInCart(product.id)">Add to Cart</ng-container>
+          <ng-container *ngIf="isProductInCart(product.id)">Added to Cart</ng-container>
+        </button>
+        <a mat-button [routerLink]="['/product', product.id]" class="view-product-link">
+          <mat-icon>visibility</mat-icon> View
+        </a>
+      </div>
+    </mat-card-actions>    
+  </mat-card>
+</section>
+
+<mat-paginator
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="[5, 10, 20, 50]"
+  (page)="onPageChange($event)">
+</mat-paginator>
