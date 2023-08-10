@@ -10,23 +10,24 @@ import { CartService } from 'src/app/services/cart.service';
 export class ProductsComponent implements OnInit {
   products: any[] = [];
   currentPage = 1;
-  itemsPerPage = 10; // Number of products to display per page
-  totalItems: number = 0; // Initialize totalItems to 0
-  filteredProducts: any[] = []; //searchmodification sm
-  searchQuery: string = '';//sm
+  itemsPerPage = 10;
+  totalItems: number = 0;
+  filteredProducts: any[] = [];
+  searchQuery: string = '';
+  selectedSortOption: string = 'lowToHigh'; // Default sorting option
 
   constructor(private productService: ProductService, private cartService: CartService) {}
 
   ngOnInit(): void {
-    // Fetch products from your service or API
     this.products = this.productService.getProducts();
-    this.filteredProducts = this.products;//sm   
-    this.totalItems = this.products.length; // Set total number of products
+    this.filteredProducts = this.products;
+    this.totalItems = this.products.length;
+    this.sortProducts(); // Initial sorting based on default option
   }
 
   getPaginatedProducts(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.products.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   onPageChange(event: any): void {
@@ -49,15 +50,22 @@ export class ProductsComponent implements OnInit {
     return this.cartService.isProductAdded(productId);
   }
 
-  filterProductsByCategory(category: string): void {
-    this.products = this.productService.getProductsByCategory(category);
-    this.totalItems = this.products.length;
-    this.currentPage = 1;
-  }
-  
-  onSearchChange(): void {//sm
+  onSearchChange(): void {
     this.filteredProducts = this.productService.searchProducts(this.searchQuery);
     this.totalItems = this.filteredProducts.length;
     this.currentPage = 1;
+    this.sortProducts(); // Sort after filtering
+  }
+
+  onSortChange(): void {
+    this.sortProducts();
+  }
+
+  sortProducts(): void {
+    if (this.selectedSortOption === 'lowToHigh') {
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (this.selectedSortOption === 'highToLow') {
+      this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
   }
 }

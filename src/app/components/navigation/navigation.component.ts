@@ -20,4 +20,13 @@ export class NavigationComponent {
   isProductsMenuSelected(): boolean {
     return this.currentRoute === '/products';
   }
+
+  isOrdersMenuSelected(): boolean {
+    return this.currentRoute === '/order-list';
+  }
+
+  logout(): void {
+    this.router.navigate(['/login']); // Navigate to the login component
+  }
+  
 }

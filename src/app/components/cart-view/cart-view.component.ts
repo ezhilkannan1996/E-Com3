@@ -31,4 +31,32 @@ export class CartViewComponent implements OnInit {
     this.cartService.clearCart();
     // Redirect to payment page or order summary
   }
+
+
+  //cart modification
+  buyNow(item : any){
+
+  }
+  buyProducts(cartitems : any){
+
+  }
+
+  increaseQuantity(item: any) {
+    if (item.quantity === undefined) {
+      item.quantity = 0;
+    }
+    item.quantity++;
+  }
+
+  decreaseQuantity(item: any) {
+    if (item.quantity === undefined) {
+      item.quantity = 0;
+    } else if (item.quantity > 0) {
+      item.quantity--;
+    }
+  }
+
+  get totalOrderPrice(): number {
+    return this.cartItems.reduce((total, item) => total + (item.quantity ? item.price * item.quantity : 0), 0);
+  }
 }

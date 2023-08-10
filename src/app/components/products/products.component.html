@@ -1,12 +1,16 @@
 <div class="search-container">
-  <mat-icon class="search-icon"  [ngStyle]="{'font-size': searchQuery.length > 0 ? '33px' : '30px'}" >search</mat-icon>
-  <!-- <mat-form-field class="search-input">  -->
-    <div class="search-input">
+  <mat-form-field class="sort-select">
+    <mat-label>Sort by Price</mat-label>
+    <mat-select [(value)]="selectedSortOption" (selectionChange)="onSortChange()">
+      <mat-option value="lowToHigh">Price: Low to High</mat-option>
+      <mat-option value="highToLow">Price: High to Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="search-input">
+    <mat-icon class="search-icon" [ngStyle]="{'font-size': searchQuery.length > 0 ? '33px' : '30px'}">search</mat-icon>
     <input matInput type="text" placeholder="Search" [(ngModel)]="searchQuery" (input)="onSearchChange()">
   </div>
-  <!-- </mat-form-field> -->
 </div>
-
 
 <!-- <mat-form-field class="search-input">
   <input matInput type="text" placeholder="Search">

@@ -49,3 +49,22 @@
 .add-to-cart-btn:hover {
   background-color: #c7320b;
 }
+
+.mat-mdc-card-content {
+  display: block;
+  padding: 0 16px;
+  height: 314px;
+}
+.product{
+  padding-top: 60px;
+}
+
+.product-image {
+  width: auto; 
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 36px;
+  margin-bottom: 36px;
+}

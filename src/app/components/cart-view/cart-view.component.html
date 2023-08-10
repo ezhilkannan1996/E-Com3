@@ -1,20 +1,48 @@
-<mat-card class="cart-container">
-  <mat-card-header>
-    <div class="header-text">Your Cart</div>
-  </mat-card-header>
-  <mat-card-content>
-    <div *ngIf="cartItems.length === 0" class="empty-cart-text">Your cart is empty.</div>
-    <div *ngFor="let item of cartItems" class="cart-item">
-      <div class="item-details">
-        <h4>{{ item.name }}</h4>
-        <p class="item-price">$ {{ item.price }}</p>
+<div class="cart container">
+  <mat-card *ngFor="let item of cartItems" class="cart-item-card">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="cart-item-image">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" />
+        </div>
       </div>
-      <button mat-icon-button color="warn" (click)="removeFromCart(item)">
-        <mat-icon>close</mat-icon>
-      </button>
+      <div class="col-md-8 col-sm-12 col-xs-12">
+        <mat-card-content class="cart-item-content">
+          <h2>Product Name: {{ item.name }}</h2>
+          <p>Price: {{ item.price | currency }}</p>
+
+            <!-- <div class="quantity-controls"> Quantity: {{ item.quantity }}
+            <button (click)="decreaseQuantity(item)">-</button>           
+            <button (click)="increaseQuantity(item)">+</button>            
+          </div> -->
+          <div class="quantity-controls">
+            <button mat-icon-button color="warn" (click)="decreaseQuantity(item)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            Quantity: {{ item.quantity }}
+            <button mat-icon-button color="primary" (click)="increaseQuantity(item)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="total-price">
+            Total Price: &#x20B9;{{ (item.quantity || 0) * item.price }}
+          </div>
+          <mat-card-actions>
+          
+            <div class="btn-actions">
+              <button mat-icon-button class="btn btn-sm btn-success"  
+              (click)="removeFromCart(item)"><mat-icon>delete</mat-icon>
+              </button>             
+              <div class="buynowdiv">
+              <button mat-raised-button color="primary" (click)="buyNow(item)">Buy Now</button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>       
+      </div>
     </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" *ngIf="cartItems.length > 0" (click)="checkout()">Checkout</button>
-  </mat-card-actions>
-</mat-card>
+  </mat-card>
+</div>
+<div class="place-order-btn">
+  <button mat-raised-button color="accent" (click)="buyProducts(cartItems)">Place Order</button>
+</div>

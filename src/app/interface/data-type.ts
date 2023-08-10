@@ -73,3 +73,13 @@ export interface signUp {
     orderDate: string;
     items: OrderItem[];
   }
+
+  export interface users{
+    id :number;
+    name:string;
+    username:string 
+    password:string
+    email:string
+    phonenumber: number
+    role :'Admin'|'User'
+  }

@@ -26,6 +26,8 @@ import { MatListModule } from '@angular/material/list';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/sign-up/sign-up.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NotfoundComponent } from './components/notfound/notfound.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     ContactComponent,
     ProductSidebarComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    NotfoundComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
